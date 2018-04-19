@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ModelCreateDlg" widgetVar="ModelCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateModelTitle}">
+            <h:form id="ModelCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{modelController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateModelLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{modelController.selected.id}" title="#{bundle.CreateModelTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateModelLabel_marque}" for="marque" />
+                        <p:selectOneMenu id="marque" value="#{modelController.selected.marque}" >
+                            <f:selectItems value="#{marqueController.itemsAvailableSelectOne}"
+                                           var="marqueItem"
+                                           itemValue="#{marqueItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateModelLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{modelController.selected.nom}" title="#{bundle.CreateModelTitle_nom}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{modelController.create}" value="#{bundle.Save}" update="display,:ModelListForm:datalist,:growl" oncomplete="handleSubmit(args,'ModelCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ModelCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

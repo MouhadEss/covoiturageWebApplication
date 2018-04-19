@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TypeRouteViewDlg" widgetVar="TypeRouteViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTypeRouteTitle}">
+            <h:form id="TypeRouteViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{typeRouteController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTypeRouteLabel_nom}"/>
+                        <h:outputText value="#{typeRouteController.selected.nom}" title="#{bundle.ViewTypeRouteTitle_nom}"/>
+                        <h:outputText value="#{bundle.ViewTypeRouteLabel_circuitVoyage}"/>
+                        <h:outputText value="#{typeRouteController.selected.circuitVoyage}" title="#{bundle.ViewTypeRouteTitle_circuitVoyage}"/>
+                        <h:outputText value="#{bundle.ViewTypeRouteLabel_id}"/>
+                        <h:outputText value="#{typeRouteController.selected.id}" title="#{bundle.ViewTypeRouteTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TypeRouteViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

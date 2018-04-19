@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Creation Voyage"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form id="proposer">
+                <div id="step1">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="VilleDepart:" for="villeDepart" />
+                        <p:selectOneMenu id="villeDepart" value="#{voyageController.selected.villeDepart}" >
+                            <f:selectItem value="#{null}" itemLabel="-- -- -- -- --"/>
+                            <f:selectItems value="#{villeController.itemsAvailableSelectOne}" var="item" 
+                                           itemValue="#{item}" itemLabel="#{item.nom}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="VilleArriver:" for="villeArriver" />
+                        <p:selectOneMenu id="villeArriver" value="#{voyageController.selected.villeArriver}" >
+                            <f:selectItem value="#{null}" itemLabel="-- -- -- -- --"/>
+                            <f:selectItems value="#{villeController.itemsAvailableSelectOne}" var="item" 
+                                           itemValue="#{item}" itemLabel="#{item.nom}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="DateVoyage:" for="dateVoyage" />
+                        <p:calendar id="dateVoyage" pattern="MM/dd/yyyy" value="#{voyageController.selected.dateVoyage}" 
+                                    title="#{bundle.EditVoyageTitle_dateVoyage}"  showOn="button"/>
+                        <p:outputLabel value="Prix:" for="prix" />
+                        <p:inputText id="prix" value="#{voyageController.selected.prix}" title="Prix" />
+                        <p:outputLabel value="NbrPlaceMax:" for="nbrPlaceMax" />
+                        <p:inputText id="nbrPlaceMax" value="#{voyageController.selected.nbrPlaceMax}" title="NbrPlaceMax" />
+                    </p:panelGrid>
+                </div>
+                <div id="step2">
+                    <h:panelGroup id="display">
+                        <p:panelGrid columns="2" >
+
+                            <p:outputLabel value="TypeRoute:" for="typeRoute" />
+                            <p:selectOneMenu id="typeRoute" value="#{voyageController.circuitVoyage.typeRoute}" >
+                                <f:selectItems value="#{typeRouteController.itemsAvailableSelectOne}" var="typeRouteItem"
+                                               itemValue="#{typeRouteItem}"
+                                               itemLabel="#{typeRouteItem.nom}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="VilleArr:" for="villeArr" />
+                            <p:selectOneMenu id="villeArr" value="#{voyageController.circuitVoyage.villeArr}" >
+                                <!-- TODO: update below reference to list of available items-->
+                                <f:selectItems value="#{villeController.itemsAvailableSelectOne}" var="villrArrItem"
+                                               itemValue="#{villrArrItem}"
+                                               itemLabel="#{villrArrItem.nom}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="VilleDep:" for="villeDep" />
+                            <p:selectOneMenu id="villeDep" value="#{voyageController.circuitVoyage.villeDep}" >
+                                <!-- TODO: update below reference to list of available items-->
+                                <f:selectItems value="#{villeController.itemsAvailableSelectOne}" var="villeDepItem"
+                                               itemValue="#{villeDepItem}"
+                                               itemLabel="#{villeDepItem.nom}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Prix:" for="prixCircuit" />
+                            <p:inputText id="prixCircuit" value="#{voyageController.circuitVoyage.prix}" title="Prix" />
+
+
+                        </p:panelGrid>
+                        <p:commandButton actionListener="#{voyageController.listConstract()}" value="Save" update="display,:proposer:datalist"  />
+                    </h:panelGroup>
+
+                    <p:panel header="LIST" >
+                        <p:dataTable id="datalist" value="#{voyageController.circuits}" var="item"
+                                     selectionMode="single" selection="#{voyageController.circuitVoyage}"
+                                     paginator="true"
+                                     rowKey="#{item.num}"
+
+                                     >
+
+                            <p:ajax event="rowSelect"   update="deleteButton"/>
+                            <p:ajax event="rowUnselect" update="deleteButton"/>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Ville Depart"/>
+                                </f:facet>
+                                <h:outputText value="#{item.villeDep.nom}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Ville D Arriver"/>
+                                </f:facet>
+                                <h:outputText value="#{item.villeArr.nom}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Prix"/>
+                                </f:facet>
+                                <h:outputText value="#{item.prix}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Numero D Ordre"/>
+                                </f:facet>
+                                <h:outputText value="#{item.num}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Type de Route"/>
+                                </f:facet>
+                                <h:outputText value="#{item.typeRoute.nom}"/>
+                            </p:column>
+
+                            <p:column>
+                                <p:commandButton id="deleteButton"  value="Delete" update="datalist" disabled="#{empty voyageController.circuitVoyage}" />
+                            </p:column>
+
+                        </p:dataTable>
+                    </p:panel>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
+

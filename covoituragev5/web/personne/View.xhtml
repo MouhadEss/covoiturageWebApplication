@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PersonneViewDlg" widgetVar="PersonneViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPersonneTitle}">
+            <h:form id="PersonneViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{personneController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPersonneLabel_ratting}"/>
+                        <h:outputText value="#{personneController.selected.ratting}" title="#{bundle.ViewPersonneTitle_ratting}"/>
+                        <h:outputText value="#{bundle.ViewPersonneLabel_nbrVoyageTotale}"/>
+                        <h:outputText value="#{personneController.selected.nbrVoyageTotale}" title="#{bundle.ViewPersonneTitle_nbrVoyageTotale}"/>
+                        <h:outputText value="#{bundle.ViewPersonneLabel_nbrVoyageConducteur}"/>
+                        <h:outputText value="#{personneController.selected.nbrVoyageConducteur}" title="#{bundle.ViewPersonneTitle_nbrVoyageConducteur}"/>
+                        <h:outputText value="#{bundle.ViewPersonneLabel_nbrVoyagePassager}"/>
+                        <h:outputText value="#{personneController.selected.nbrVoyagePassager}" title="#{bundle.ViewPersonneTitle_nbrVoyagePassager}"/>
+                        <h:outputText value="#{bundle.ViewPersonneLabel_email}"/>
+                        <h:outputText value="#{personneController.selected.email}" title="#{bundle.ViewPersonneTitle_email}"/>
+                        <h:outputText value="#{bundle.ViewPersonneLabel_nom}"/>
+                        <h:outputText value="#{personneController.selected.nom}" title="#{bundle.ViewPersonneTitle_nom}"/>
+                        <h:outputText value="#{bundle.ViewPersonneLabel_prenom}"/>
+                        <h:outputText value="#{personneController.selected.prenom}" title="#{bundle.ViewPersonneTitle_prenom}"/>
+                        <h:outputText value="#{bundle.ViewPersonneLabel_password}"/>
+                        <h:outputText value="#{personneController.selected.password}" title="#{bundle.ViewPersonneTitle_password}"/>
+                        <h:outputText value="#{bundle.ViewPersonneLabel_tel}"/>
+                        <h:outputText value="#{personneController.selected.tel}" title="#{bundle.ViewPersonneTitle_tel}"/>
+                        <h:outputText value="#{bundle.ViewPersonneLabel_age}"/>
+                        <h:outputText value="#{personneController.selected.age}" title="#{bundle.ViewPersonneTitle_age}"/>
+                        <h:outputText value="#{bundle.ViewPersonneLabel_cin}"/>
+                        <h:outputText value="#{personneController.selected.cin}" title="#{bundle.ViewPersonneTitle_cin}"/>
+                        <h:outputText value="#{bundle.ViewPersonneLabel_avis}"/>
+                        <h:outputText value="#{personneController.selected.avis}" title="#{bundle.ViewPersonneTitle_avis}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PersonneViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

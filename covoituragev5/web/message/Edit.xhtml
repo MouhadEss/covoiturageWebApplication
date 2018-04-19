@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MessageEditDlg" widgetVar="MessageEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMessageTitle}">
+            <h:form id="MessageEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{messageController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditMessageLabel_personne}" for="personne" />
+                        <p:selectOneMenu id="personne" value="#{messageController.selected.personne}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{personneController.itemsAvailableSelectOne}"
+                                           var="personneItem"
+                                           itemValue="#{personneItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditMessageLabel_dateMessage}" for="dateMessage" />
+                        <p:calendar id="dateMessage" pattern="MM/dd/yyyy" value="#{messageController.selected.dateMessage}" title="#{bundle.EditMessageTitle_dateMessage}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditMessageLabel_objet}" for="objet" />
+                        <p:inputText id="objet" value="#{messageController.selected.objet}" title="#{bundle.EditMessageTitle_objet}" />
+                        <p:outputLabel value="#{bundle.EditMessageLabel_contenu}" for="contenu" />
+                        <p:inputText id="contenu" value="#{messageController.selected.contenu}" title="#{bundle.EditMessageTitle_contenu}" />
+                        <p:outputLabel value="#{bundle.EditMessageLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{messageController.selected.id}" title="#{bundle.EditMessageTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{messageController.update}" value="#{bundle.Save}" update="display,:MessageListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MessageEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MessageEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

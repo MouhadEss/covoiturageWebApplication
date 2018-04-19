@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BagagePricingEditDlg" widgetVar="BagagePricingEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditBagagePricingTitle}">
+            <h:form id="BagagePricingEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{bagagePricingController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditBagagePricingLabel_prix}" for="prix" />
+                        <p:inputText id="prix" value="#{bagagePricingController.selected.prix}" title="#{bundle.EditBagagePricingTitle_prix}" />
+                        <p:outputLabel value="#{bundle.EditBagagePricingLabel_unite}" for="unite" />
+                        <p:selectOneMenu id="unite" value="#{bagagePricingController.selected.unite}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{uniteController.itemsAvailableSelectOne}"
+                                           var="uniteItem"
+                                           itemValue="#{uniteItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditBagagePricingLabel_bagageVoyage}" for="bagageVoyage" />
+                        <p:selectOneMenu id="bagageVoyage" value="#{bagagePricingController.selected.bagageVoyage}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{bagageVoyageController.itemsAvailableSelectOne}"
+                                           var="bagageVoyageItem"
+                                           itemValue="#{bagageVoyageItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditBagagePricingLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{bagagePricingController.selected.id}" title="#{bundle.EditBagagePricingTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{bagagePricingController.update}" value="#{bundle.Save}" update="display,:BagagePricingListForm:datalist,:growl" oncomplete="handleSubmit(args, 'BagagePricingEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BagagePricingEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

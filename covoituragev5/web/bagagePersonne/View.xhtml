@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BagagePersonneViewDlg" widgetVar="BagagePersonneViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewBagagePersonneTitle}">
+            <h:form id="BagagePersonneViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{bagagePersonneController.selected != null}">
+                        <h:outputText value="#{bundle.ViewBagagePersonneLabel_volume}"/>
+                        <h:outputText value="#{bagagePersonneController.selected.volume}" title="#{bundle.ViewBagagePersonneTitle_volume}"/>
+                        <h:outputText value="#{bundle.ViewBagagePersonneLabel_poids}"/>
+                        <h:outputText value="#{bagagePersonneController.selected.poids}" title="#{bundle.ViewBagagePersonneTitle_poids}"/>
+                        <h:outputText value="#{bundle.ViewBagagePersonneLabel_personne}"/>
+                        <h:outputText value="#{bagagePersonneController.selected.personne}" title="#{bundle.ViewBagagePersonneTitle_personne}"/>
+                        <h:outputText value="#{bundle.ViewBagagePersonneLabel_bagageVoyage}"/>
+                        <h:outputText value="#{bagagePersonneController.selected.bagageVoyage}" title="#{bundle.ViewBagagePersonneTitle_bagageVoyage}"/>
+                        <h:outputText value="#{bundle.ViewBagagePersonneLabel_id}"/>
+                        <h:outputText value="#{bagagePersonneController.selected.id}" title="#{bundle.ViewBagagePersonneTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="BagagePersonneViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

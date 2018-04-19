@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MessageDetailViewDlg" widgetVar="MessageDetailViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMessageDetailTitle}">
+            <h:form id="MessageDetailViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{messageDetailController.selected != null}">
+                        <h:outputText value="#{bundle.ViewMessageDetailLabel_message}"/>
+                        <h:outputText value="#{messageDetailController.selected.message}" title="#{bundle.ViewMessageDetailTitle_message}"/>
+                        <h:outputText value="#{bundle.ViewMessageDetailLabel_personne}"/>
+                        <h:outputText value="#{messageDetailController.selected.personne}" title="#{bundle.ViewMessageDetailTitle_personne}"/>
+                        <h:outputText value="#{bundle.ViewMessageDetailLabel_dateLecture}"/>
+                        <h:outputText value="#{messageDetailController.selected.dateLecture}" title="#{bundle.ViewMessageDetailTitle_dateLecture}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMessageDetailLabel_dateSupression}"/>
+                        <h:outputText value="#{messageDetailController.selected.dateSupression}" title="#{bundle.ViewMessageDetailTitle_dateSupression}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMessageDetailLabel_id}"/>
+                        <h:outputText value="#{messageDetailController.selected.id}" title="#{bundle.ViewMessageDetailTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="MessageDetailViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

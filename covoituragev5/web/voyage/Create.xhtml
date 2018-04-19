@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VoyageCreateDlg" widgetVar="VoyageCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateVoyageTitle}">
+            <h:form id="VoyageCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{voyageController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateVoyageLabel_dateAnnonce}" for="dateAnnonce" />
+                        <p:calendar id="dateAnnonce" pattern="MM/dd/yyyy" value="#{voyageController.selected.dateAnnonce}" title="#{bundle.EditVoyageTitle_dateAnnonce}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateVoyageLabel_prix}" for="prix" />
+                        <p:inputText id="prix" value="#{voyageController.selected.prix}" title="#{bundle.CreateVoyageTitle_prix}" />
+                        <p:outputLabel value="#{bundle.CreateVoyageLabel_model}" for="model" />
+                        <p:selectOneMenu id="model" value="#{voyageController.selected.model}" >
+                            <f:selectItems value="#{modelController.itemsAvailableSelectOne}"
+                                           var="modelItem"
+                                           itemValue="#{modelItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateVoyageLabel_villeDepart}" for="villeDepart" />
+                        <p:selectOneMenu id="villeDepart" value="#{voyageController.selected.villeDepart}" >
+                            <f:selectItems value="#{villeController.itemsAvailableSelectOne}"
+                                           var="villeDepartItem"
+                                           itemValue="#{villeDepartItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateVoyageLabel_villeArriver}" for="villeArriver" />
+                        <p:selectOneMenu id="villeArriver" value="#{voyageController.selected.villeArriver}" >
+                            <f:selectItems value="#{villeController.itemsAvailableSelectOne}"
+                                           var="villeArriverItem"
+                                           itemValue="#{villeArriverItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateVoyageLabel_dateVoyage}" for="dateVoyage" />
+                        <p:calendar id="dateVoyage" pattern="MM/dd/yyyy" value="#{voyageController.selected.dateVoyage}" title="#{bundle.EditVoyageTitle_dateVoyage}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateVoyageLabel_nbrPlaceOuccuper}" for="nbrPlaceOuccuper" />
+                        <p:inputText id="nbrPlaceOuccuper" value="#{voyageController.selected.nbrPlaceOuccuper}" title="#{bundle.CreateVoyageTitle_nbrPlaceOuccuper}" />
+                        <p:outputLabel value="#{bundle.CreateVoyageLabel_nbrPlaceMax}" for="nbrPlaceMax" />
+                        <p:inputText id="nbrPlaceMax" value="#{voyageController.selected.nbrPlaceMax}" title="#{bundle.CreateVoyageTitle_nbrPlaceMax}" />
+                        <p:outputLabel value="#{bundle.CreateVoyageLabel_personne}" for="personne" />
+                        <p:selectOneMenu id="personne" value="#{voyageController.selected.personne}" >
+                            <f:selectItems value="#{personneController.itemsAvailableSelectOne}"
+                                           var="personneItem"
+                                           itemValue="#{personneItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateVoyageLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{voyageController.selected.id}" title="#{bundle.CreateVoyageTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{voyageController.create}" value="#{bundle.Save}" update="display,:VoyageListForm:datalist,:growl" oncomplete="handleSubmit(args,'VoyageCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="VoyageCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

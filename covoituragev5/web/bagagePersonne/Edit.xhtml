@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BagagePersonneEditDlg" widgetVar="BagagePersonneEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditBagagePersonneTitle}">
+            <h:form id="BagagePersonneEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{bagagePersonneController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditBagagePersonneLabel_volume}" for="volume" />
+                        <p:selectOneMenu id="volume" value="#{bagagePersonneController.selected.volume}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{volumeController.itemsAvailableSelectOne}"
+                                           var="volumeItem"
+                                           itemValue="#{volumeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditBagagePersonneLabel_poids}" for="poids" />
+                        <p:selectOneMenu id="poids" value="#{bagagePersonneController.selected.poids}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{poidsController.itemsAvailableSelectOne}"
+                                           var="poidsItem"
+                                           itemValue="#{poidsItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditBagagePersonneLabel_personne}" for="personne" />
+                        <p:selectOneMenu id="personne" value="#{bagagePersonneController.selected.personne}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{personneController.itemsAvailableSelectOne}"
+                                           var="personneItem"
+                                           itemValue="#{personneItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditBagagePersonneLabel_bagageVoyage}" for="bagageVoyage" />
+                        <p:selectOneMenu id="bagageVoyage" value="#{bagagePersonneController.selected.bagageVoyage}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{bagageVoyageController.itemsAvailableSelectOne}"
+                                           var="bagageVoyageItem"
+                                           itemValue="#{bagageVoyageItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditBagagePersonneLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{bagagePersonneController.selected.id}" title="#{bundle.EditBagagePersonneTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{bagagePersonneController.update}" value="#{bundle.Save}" update="display,:BagagePersonneListForm:datalist,:growl" oncomplete="handleSubmit(args, 'BagagePersonneEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BagagePersonneEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

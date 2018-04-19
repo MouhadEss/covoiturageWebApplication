@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CircuitVoyageEditDlg" widgetVar="CircuitVoyageEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCircuitVoyageTitle}">
+            <h:form id="CircuitVoyageEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{circuitVoyageController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCircuitVoyageLabel_villeArr}" for="villeArr" />
+                        <p:selectOneMenu id="villeArr" value="#{circuitVoyageController.selected.villeArr}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{villeController.itemsAvailableSelectOne}"
+                                           var="villeArrItem"
+                                           itemValue="#{villeArrItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditCircuitVoyageLabel_voyage}" for="voyage" />
+                        <p:selectOneMenu id="voyage" value="#{circuitVoyageController.selected.voyage}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{voyageController.itemsAvailableSelectOne}"
+                                           var="voyageItem"
+                                           itemValue="#{voyageItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditCircuitVoyageLabel_villeDep}" for="villeDep" />
+                        <p:selectOneMenu id="villeDep" value="#{circuitVoyageController.selected.villeDep}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{villeController.itemsAvailableSelectOne}"
+                                           var="villeDepItem"
+                                           itemValue="#{villeDepItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditCircuitVoyageLabel_num}" for="num" />
+                        <p:inputText id="num" value="#{circuitVoyageController.selected.num}" title="#{bundle.EditCircuitVoyageTitle_num}" />
+                        <p:outputLabel value="#{bundle.EditCircuitVoyageLabel_prix}" for="prix" />
+                        <p:inputText id="prix" value="#{circuitVoyageController.selected.prix}" title="#{bundle.EditCircuitVoyageTitle_prix}" />
+                        <p:outputLabel value="#{bundle.EditCircuitVoyageLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{circuitVoyageController.selected.id}" title="#{bundle.EditCircuitVoyageTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{circuitVoyageController.update}" value="#{bundle.Save}" update="display,:CircuitVoyageListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CircuitVoyageEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CircuitVoyageEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

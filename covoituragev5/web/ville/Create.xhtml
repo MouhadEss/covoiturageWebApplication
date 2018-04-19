@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VilleCreateDlg" widgetVar="VilleCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateVilleTitle}">
+            <h:form id="VilleCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{villeController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateVilleLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{villeController.selected.nom}" title="#{bundle.CreateVilleTitle_nom}" />
+                        <p:outputLabel value="#{bundle.CreateVilleLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{villeController.selected.id}" title="#{bundle.CreateVilleTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{villeController.create}" value="#{bundle.Save}" update="display,:VilleListForm:datalist,:growl" oncomplete="handleSubmit(args,'VilleCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="VilleCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

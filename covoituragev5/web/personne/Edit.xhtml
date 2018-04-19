@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PersonneEditDlg" widgetVar="PersonneEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPersonneTitle}">
+            <h:form id="PersonneEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{personneController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPersonneLabel_ratting}" for="ratting" />
+                        <p:inputText id="ratting" value="#{personneController.selected.ratting}" title="#{bundle.EditPersonneTitle_ratting}" />
+                        <p:outputLabel value="#{bundle.EditPersonneLabel_nbrVoyageTotale}" for="nbrVoyageTotale" />
+                        <p:inputText id="nbrVoyageTotale" value="#{personneController.selected.nbrVoyageTotale}" title="#{bundle.EditPersonneTitle_nbrVoyageTotale}" />
+                        <p:outputLabel value="#{bundle.EditPersonneLabel_nbrVoyageConducteur}" for="nbrVoyageConducteur" />
+                        <p:inputText id="nbrVoyageConducteur" value="#{personneController.selected.nbrVoyageConducteur}" title="#{bundle.EditPersonneTitle_nbrVoyageConducteur}" />
+                        <p:outputLabel value="#{bundle.EditPersonneLabel_nbrVoyagePassager}" for="nbrVoyagePassager" />
+                        <p:inputText id="nbrVoyagePassager" value="#{personneController.selected.nbrVoyagePassager}" title="#{bundle.EditPersonneTitle_nbrVoyagePassager}" />
+                        <p:outputLabel value="#{bundle.EditPersonneLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{personneController.selected.email}" title="#{bundle.EditPersonneTitle_email}" />
+                        <p:outputLabel value="#{bundle.EditPersonneLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{personneController.selected.nom}" title="#{bundle.EditPersonneTitle_nom}" />
+                        <p:outputLabel value="#{bundle.EditPersonneLabel_prenom}" for="prenom" />
+                        <p:inputText id="prenom" value="#{personneController.selected.prenom}" title="#{bundle.EditPersonneTitle_prenom}" />
+                        <p:outputLabel value="#{bundle.EditPersonneLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{personneController.selected.password}" title="#{bundle.EditPersonneTitle_password}" />
+                        <p:outputLabel value="#{bundle.EditPersonneLabel_tel}" for="tel" />
+                        <p:inputText id="tel" value="#{personneController.selected.tel}" title="#{bundle.EditPersonneTitle_tel}" />
+                        <p:outputLabel value="#{bundle.EditPersonneLabel_age}" for="age" />
+                        <p:inputText id="age" value="#{personneController.selected.age}" title="#{bundle.EditPersonneTitle_age}" />
+                        <p:outputLabel value="#{bundle.EditPersonneLabel_cin}" for="cin" />
+                        <p:inputText id="cin" value="#{personneController.selected.cin}" title="#{bundle.EditPersonneTitle_cin}" />
+                        <p:outputLabel value="#{bundle.EditPersonneLabel_avis}" for="avis" />
+                        <p:inputText id="avis" value="#{personneController.selected.avis}" title="#{bundle.EditPersonneTitle_avis}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{personneController.update}" value="#{bundle.Save}" update="display,:PersonneListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PersonneEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PersonneEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

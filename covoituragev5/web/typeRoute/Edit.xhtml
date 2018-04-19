@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TypeRouteEditDlg" widgetVar="TypeRouteEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTypeRouteTitle}">
+            <h:form id="TypeRouteEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{typeRouteController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTypeRouteLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{typeRouteController.selected.nom}" title="#{bundle.EditTypeRouteTitle_nom}" />
+                        <p:outputLabel value="#{bundle.EditTypeRouteLabel_circuitVoyage}" for="circuitVoyage" />
+                        <p:selectOneMenu id="circuitVoyage" value="#{typeRouteController.selected.circuitVoyage}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{circuitVoyageController.itemsAvailableSelectOne}"
+                                           var="circuitVoyageItem"
+                                           itemValue="#{circuitVoyageItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTypeRouteLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{typeRouteController.selected.id}" title="#{bundle.EditTypeRouteTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{typeRouteController.update}" value="#{bundle.Save}" update="display,:TypeRouteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TypeRouteEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TypeRouteEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

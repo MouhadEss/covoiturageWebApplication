@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListVoyageTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="VoyageListForm">
+                <p:panel header="#{bundle.ListVoyageTitle}">
+                    <p:dataTable id="datalist" value="#{voyageController.items}" var="item"
+                                 selectionMode="single" selection="#{voyageController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVoyageTitle_dateAnnonce}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateAnnonce}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVoyageTitle_prix}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prix}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVoyageTitle_model}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.model}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVoyageTitle_villeDepart}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.villeDepart}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVoyageTitle_villeArriver}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.villeArriver}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVoyageTitle_dateVoyage}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateVoyage}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVoyageTitle_nbrPlaceOuccuper}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nbrPlaceOuccuper}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVoyageTitle_nbrPlaceMax}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nbrPlaceMax}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVoyageTitle_personne}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.personne}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVoyageTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{voyageController.prepareCreate}" update=":VoyageCreateForm" oncomplete="PF('VoyageCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":VoyageViewForm" oncomplete="PF('VoyageViewDialog').show()" disabled="#{empty voyageController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":VoyageEditForm" oncomplete="PF('VoyageEditDialog').show()" disabled="#{empty voyageController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{voyageController.destroy}" update=":growl,datalist" disabled="#{empty voyageController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

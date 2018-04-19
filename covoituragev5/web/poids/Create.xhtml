@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PoidsCreateDlg" widgetVar="PoidsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePoidsTitle}">
+            <h:form id="PoidsCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{poidsController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePoidsLabel_poids}" for="poids" />
+                        <p:inputText id="poids" value="#{poidsController.selected.poids}" title="#{bundle.CreatePoidsTitle_poids}" />
+                        <p:outputLabel value="#{bundle.CreatePoidsLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{poidsController.selected.id}" title="#{bundle.CreatePoidsTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{poidsController.create}" value="#{bundle.Save}" update="display,:PoidsListForm:datalist,:growl" oncomplete="handleSubmit(args,'PoidsCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PoidsCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

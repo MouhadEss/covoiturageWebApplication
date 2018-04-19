@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ManagerViewDlg" widgetVar="ManagerViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewManagerTitle}">
+            <h:form id="ManagerViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{managerController.selected != null}">
+                        <h:outputText value="#{bundle.ViewManagerLabel_rib}"/>
+                        <h:outputText value="#{managerController.selected.rib}" title="#{bundle.ViewManagerTitle_rib}"/>
+                        <h:outputText value="#{bundle.ViewManagerLabel_pourcentage}"/>
+                        <h:outputText value="#{managerController.selected.pourcentage}" title="#{bundle.ViewManagerTitle_pourcentage}"/>
+                        <h:outputText value="#{bundle.ViewManagerLabel_personne}"/>
+                        <h:outputText value="#{managerController.selected.personne}" title="#{bundle.ViewManagerTitle_personne}"/>
+                        <h:outputText value="#{bundle.ViewManagerLabel_id}"/>
+                        <h:outputText value="#{managerController.selected.id}" title="#{bundle.ViewManagerTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ManagerViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

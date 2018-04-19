@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NotificationEditDlg" widgetVar="NotificationEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditNotificationTitle}">
+            <h:form id="NotificationEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{notificationController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditNotificationLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{notificationController.selected.id}" title="#{bundle.EditNotificationTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditNotificationLabel_vu}" for="vu" />
+                        <p:inputText id="vu" value="#{notificationController.selected.vu}" title="#{bundle.EditNotificationTitle_vu}" />
+                        <p:outputLabel value="#{bundle.EditNotificationLabel_qui}" for="qui" />
+                        <p:inputText id="qui" value="#{notificationController.selected.qui}" title="#{bundle.EditNotificationTitle_qui}" />
+                        <p:outputLabel value="#{bundle.EditNotificationLabel_personne}" for="personne" />
+                        <p:selectOneMenu id="personne" value="#{notificationController.selected.personne}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{personneController.itemsAvailableSelectOne}"
+                                           var="personneItem"
+                                           itemValue="#{personneItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditNotificationLabel_voyage}" for="voyage" />
+                        <p:selectOneMenu id="voyage" value="#{notificationController.selected.voyage}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{voyageController.itemsAvailableSelectOne}"
+                                           var="voyageItem"
+                                           itemValue="#{voyageItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditNotificationLabel_idCircuitVoyage}" for="idCircuitVoyage" />
+                        <p:inputText id="idCircuitVoyage" value="#{notificationController.selected.idCircuitVoyage}" title="#{bundle.EditNotificationTitle_idCircuitVoyage}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{notificationController.update}" value="#{bundle.Save}" update="display,:NotificationListForm:datalist,:growl" oncomplete="handleSubmit(args, 'NotificationEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="NotificationEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

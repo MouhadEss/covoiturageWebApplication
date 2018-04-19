@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VoyageViewDlg" widgetVar="VoyageViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewVoyageTitle}">
+            <h:form id="VoyageViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{voyageController.selected != null}">
+                        <h:outputText value="#{bundle.ViewVoyageLabel_dateAnnonce}"/>
+                        <h:outputText value="#{voyageController.selected.dateAnnonce}" title="#{bundle.ViewVoyageTitle_dateAnnonce}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewVoyageLabel_prix}"/>
+                        <h:outputText value="#{voyageController.selected.prix}" title="#{bundle.ViewVoyageTitle_prix}"/>
+                        <h:outputText value="#{bundle.ViewVoyageLabel_model}"/>
+                        <h:outputText value="#{voyageController.selected.model}" title="#{bundle.ViewVoyageTitle_model}"/>
+                        <h:outputText value="#{bundle.ViewVoyageLabel_villeDepart}"/>
+                        <h:outputText value="#{voyageController.selected.villeDepart}" title="#{bundle.ViewVoyageTitle_villeDepart}"/>
+                        <h:outputText value="#{bundle.ViewVoyageLabel_villeArriver}"/>
+                        <h:outputText value="#{voyageController.selected.villeArriver}" title="#{bundle.ViewVoyageTitle_villeArriver}"/>
+                        <h:outputText value="#{bundle.ViewVoyageLabel_dateVoyage}"/>
+                        <h:outputText value="#{voyageController.selected.dateVoyage}" title="#{bundle.ViewVoyageTitle_dateVoyage}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewVoyageLabel_nbrPlaceOuccuper}"/>
+                        <h:outputText value="#{voyageController.selected.nbrPlaceOuccuper}" title="#{bundle.ViewVoyageTitle_nbrPlaceOuccuper}"/>
+                        <h:outputText value="#{bundle.ViewVoyageLabel_nbrPlaceMax}"/>
+                        <h:outputText value="#{voyageController.selected.nbrPlaceMax}" title="#{bundle.ViewVoyageTitle_nbrPlaceMax}"/>
+                        <h:outputText value="#{bundle.ViewVoyageLabel_personne}"/>
+                        <h:outputText value="#{voyageController.selected.personne}" title="#{bundle.ViewVoyageTitle_personne}"/>
+                        <h:outputText value="#{bundle.ViewVoyageLabel_id}"/>
+                        <h:outputText value="#{voyageController.selected.id}" title="#{bundle.ViewVoyageTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="VoyageViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

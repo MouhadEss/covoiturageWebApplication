@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Creation Voyage"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form id="proposer">
+
+
+                <h1><h:outputText value="Voyage"/></h1>
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="VilleDepart:" for="villeDepart" />
+                    <p:selectOneMenu id="villeDepart" value="#{circuitVoyageController.voyage.villeDepart}" >
+                        <f:selectItem value="#{null}" itemLabel="-- -- -- -- --"/>
+                        <f:selectItems value="#{villeController.itemsAvailableSelectOne}" var="item" 
+                                       itemValue="#{item}" itemLabel="#{item.nom}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="VilleArriver:" for="villeArriver" />
+                    <p:selectOneMenu id="villeArriver" value="#{circuitVoyageController.voyage.villeArriver}" >
+                        <f:selectItem value="#{null}" itemLabel="-- -- -- -- --"/>
+                        <f:selectItems value="#{villeController.itemsAvailableSelectOne}" var="item" 
+                                       itemValue="#{item}" itemLabel="#{item.nom}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="DateVoyage:" for="dateVoyage" />
+                    <p:calendar id="dateVoyage" pattern="MM/dd/yyyy" value="#{circuitVoyageController.voyage.dateVoyage}" 
+                                title="#{bundle.EditVoyageTitle_dateVoyage}"  showOn="button"/>
+                    <p:outputLabel value="Prix:" for="prixVoyage" />
+                    <p:inputText id="prixVoyage" value="#{circuitVoyageController.voyage.prix}" title="Prix" />
+                </p:panelGrid>
+
+
+                <h1><h:outputText value="Circuit"/></h1>
+                <p:panelGrid columns="2">
+
+                    <p:outputLabel value="VilleDep:" for="villeDep" />
+                    <p:selectOneMenu id="villeDep" value="#{circuitVoyageController.selected.villeDep}"  >
+                        <!-- TODO: update below reference to list of available items-->
+                        <f:selectItem value="#{null}" itemLabel="-- -- -- -- --"/>
+                        <f:selectItems value="#{villeController.itemsAvailableSelectOne}" var="item" 
+                                       itemValue="#{item}" itemLabel="#{item.nom}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="VilleArr:" for="villeArr" />
+                    <p:selectOneMenu id="villeArr" value="#{circuitVoyageController.selected.villeArr}"  >
+                        <!-- TODO: update below reference to list of available items-->
+                        <f:selectItem value="#{null}" itemLabel="-- -- -- -- --"/>
+                        <f:selectItems value="#{villeController.itemsAvailableSelectOne}" var="item" 
+                                       itemValue="#{item}" itemLabel="#{item.nom}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Prix:" for="prix" />
+                    <p:inputText id="prix" value="#{circuitVoyageController.selected.prix}" title="Prix" />
+                    <p:outputLabel value="TypeRoute:" for="typeRoute" />
+                    <p:selectOneMenu id="typeRoute" value="#{circuitVoyageController.selected.typeRoute}" >
+                        <f:selectItems value="#{typeRouteController.itemsAvailableSelectOne}" var="typeRouteItem"
+                                       itemValue="#{typeRouteItem}"
+                                       itemLabel="#{typeRouteItem.nom}"/>
+                    </p:selectOneMenu>
+
+                    <p:commandButton actionListener="#{circuitVoyageController.addListSelect()}" value="Save" update=":proposer:dataList"  />
+                </p:panelGrid>
+
+
+                <h1><h:outputText value="List"/></h1>
+                <p:dataTable id="dataList" value="#{circuitVoyageController.items}" var="item" >
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Ville Depart"/>
+                        </f:facet>
+                        <h:outputText value="#{item.villeDep.nom}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Ville D Arriver"/>
+                        </f:facet>
+                        <h:outputText value="#{item.villeArr.nom}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Prix"/>
+                        </f:facet>
+                        <h:outputText value="#{item.prix}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Numero D Ordre"/>
+                        </f:facet>
+                        <h:outputText value="#{item.num}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Type de Route"/>
+                        </f:facet>
+                        <h:outputText value="#{item.typeRoute.nom}"/>
+                    </p:column>
+                    <p:column>
+                        <p:commandButton  actionListener="#{circuitVoyageController.removeListSelect(item)}" value="Delete" update="dataList"  />
+                    </p:column>
+                </p:dataTable>
+
+                <p:commandButton value="creer le voyage" actionListener="#{circuitVoyageController.createT()}" />
+
+                <h1><h:outputText value="Place"/></h1>
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="NbrPlaceMax:" for="nbrPlaceMax" />
+                    <p:inputText id="nbrPlaceMax" value="#{voyageController.selected.nbrPlaceMax}" title="NbrPlaceMax" />
+                    <h:outputText value="selectionnez Les Place disponnible :"/>
+                    <h:outputText value="Place possible"/>
+                    <p:outputLabel value="La place avant: " for="av" />
+                    <p:selectBooleanButton id="av" value="#{circuitVoyageController.place.av}" onLabel="Yes" offLabel="No" style="width:60px" />
+                    <p:outputLabel value="La place arriere gauche: " for="arrG" />
+                    <p:selectBooleanButton id="arrG" value="#{circuitVoyageController.place.arrGauche}" onLabel="Yes" offLabel="No" style="width:60px" />
+                    <p:outputLabel value="La place arriere droite: " for="arrD"/>
+                    <p:selectBooleanButton id="arrD" value="#{circuitVoyageController.place.arrDroite}" onLabel="Yes" offLabel="No" style="width:60px" />
+                    <p:outputLabel value="La place arriere milieu: " for="arrM" />
+                    <p:selectBooleanButton id="arrM" value="#{circuitVoyageController.place.arrMilieu}" onLabel="Yes" offLabel="No" style="width:60px" />
+
+                </p:panelGrid>
+
+
+                <h1><h:outputText value="Voiture et Bagage"/></h1>
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="#{bundle.CreateVoyageLabel_model}" for="marque" />
+                    <p:selectOneMenu id="marque" value="#{circuitVoyageController.marque}" >
+                        <p:ajax process="marque" listener="#{circuitVoyageController.findModel()}" update="model" />
+                        <f:selectItems value="#{marqueController.itemsAvailableSelectOne}"
+                                       var="modelItem"
+                                       itemValue="#{modelItem}"
+                                       itemLabel="#{modelItem.nom}"
+                                       />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="#{bundle.CreateVoyageLabel_model}" for="model" />
+                    <p:selectOneMenu id="model" value="#{circuitVoyageController.voyage.model}" >
+                        <f:selectItem itemValue="#{null}" itemLabel="SELECT model"/>
+                        <f:selectItems value="#{circuitVoyageController.models}"
+                                       var="modelItem"
+                                       itemValue="#{modelItem}"
+                                       itemLabel="#{modelItem.nom}"
+                                       />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Volume:" for="volume" />
+                    <p:selectOneMenu id="volume" value="#{circuitVoyageController.bagageVoyage.volume}" >
+                        <!-- TODO: update below reference to list of available items-->
+                        <f:selectItems value="#{volumeController.itemsAvailableSelectOne}" var="VolumeItem"
+                                       itemValue="#{VolumeItem}"
+                                       itemLabel="#{VolumeItem.volume}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Poids:" for="poids" />
+                    <p:selectOneMenu id="poids" value="#{circuitVoyageController.bagageVoyage.poids}" >
+                        <!-- TODO: update below reference to list of available items-->
+                        <f:selectItems value="#{poidsController.itemsAvailableSelectOne}" var="PoidsItem"
+                                       itemValue="#{PoidsItem}"
+                                       itemLabel="#{PoidsItem.poids}"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Prix du bagage:" for="prixBagage" />
+                    <p:inputText id="prixBagage" value="#{circuitVoyageController.bagagePricing.prix}" title="Prix" />
+                    <p:outputLabel value="Unite:" for="unite" />
+                    <p:selectOneMenu id="unite" value="#{circuitVoyageController.bagagePricing.unite}" >
+                        <!-- TODO: update below reference to list of available items-->
+                        <f:selectItems value="#{uniteController.itemsAvailableSelectOne}" var="itemUnite"
+                                       itemValue="#{itemUnite}"
+                                       itemLabel="#{itemUnite.nom}"/>
+                    </p:selectOneMenu>
+
+                </p:panelGrid> 
+
+
+
+
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
