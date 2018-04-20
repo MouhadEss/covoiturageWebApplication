@@ -46,6 +46,12 @@ public class Personne implements Serializable {
     public Personne() {
     }
 
+    public Personne(String email) {
+        this.email = email;
+    }
+    
+    
+
     public boolean isBloquer() {
         return bloquer;
     }
@@ -222,9 +228,10 @@ public class Personne implements Serializable {
 
     @Override
     public String toString() {
-        return "email    :" + email + " ,nom    :" + nom + "  ,prenom    " + prenom + "  ,tel    :" + tel;
+        return "Personne{" + "email=" + email + ", nom=" + nom + ", prenom=" + prenom + ", password=" + password + '}';
     }
 
+    
   
 
   

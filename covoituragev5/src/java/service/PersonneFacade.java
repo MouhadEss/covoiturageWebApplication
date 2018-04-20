@@ -28,9 +28,18 @@ public class PersonneFacade extends AbstractFacade<Personne> {
     public PersonneFacade() {
         super(Personne.class);
     }
-    
-     public Personne findPersonneById(String email) {
+
+    public Personne findPersonneById(String email) {
         return (Personne) getEntityManager().createQuery("SELECT p FROM Personne p WHERE p.email='" + email + "'").getSingleResult();
     }
-    
+
+    public int seConnecter(String email, String mdp) {
+        Personne connectedUser = findPersonneById(email);
+        System.out.println(connectedUser);
+        if (connectedUser.getPassword().equals(mdp)) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
 }

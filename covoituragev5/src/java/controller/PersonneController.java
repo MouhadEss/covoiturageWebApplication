@@ -3,6 +3,7 @@ package controller;
 import bean.Personne;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
+import controller.util.SessionUtil;
 import service.PersonneFacade;
 
 import java.io.Serializable;
@@ -31,7 +32,23 @@ public class PersonneController implements Serializable {
     public PersonneController() {
     }
 
+    public String seConnecter() {
+        int res = ejbFacade.seConnecter(selected.getEmail(), selected.getPassword());
+        System.out.println(selected.getEmail()+""+selected.getPassword());
+        if (res == 1) {
+            System.out.println("hqnqdkhalt");
+            SessionUtil.setAttribute("connectedUser", ejbFacade.findPersonneById(selected.getEmail()));
+            return "/circuitVoyage/proposerCircuit.xhtml";
+        } else {
+            System.out.println("hanadkhalt");
+            return "/user/Login.xhtml";
+        }
+    }
+
     public Personne getSelected() {
+        if (selected == null) {
+            selected = new Personne();
+        }
         return selected;
     }
 

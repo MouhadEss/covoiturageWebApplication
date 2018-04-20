@@ -31,6 +31,8 @@ public class Ville implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nom ;
+    private String lat;
+    private String lang;
 
     public Ville(Long id, String nom) {
         this.id = id;
@@ -46,6 +48,22 @@ public class Ville implements Serializable {
 
     public Ville(String nom) {
         this.nom = nom;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
     
     
